@@ -28,3 +28,31 @@ vim.keymap.set("n", "<leader>wh", ":split<cr>", { desc = "[W]indow Split [H]oriz
 -- Stay in indent mode
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left in visual mode" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right in visual mode" })
+
+-- Fred's Mappings
+
+-- Set cursor to be fat in INSERT mode
+vim.opt['guicursor'] = ''
+
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Center screen when navigating down' })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Center screen when navigating up' })
+vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Center screen when cycling search term' })
+vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Center screen when cycling search term' })
+vim.keymap.set('n', '<leader>y', '"+y', { desc = '[Y]ank to system clipboard' })
+vim.keymap.set('n', '<leader>Y', '"+Y', { desc = '[Y]ank to system clipboard' })
+vim.keymap.set('n', '<leader>d', '"_d', { desc = '[D]elete to void register' })
+vim.keymap.set('x', '<leader>p', '"_dP', { desc = '[P]aste to void register' })
+
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move highlighted text down' })
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move highlighted text down' })
+
+vim.keymap.set('i', '<C-BS>', '<C-W>', { noremap = true }) -- Makes CTRL + Backspcae delete a word back
+
+-- highlight when yanking text
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.hl.on_yank()
+  end,
+})
